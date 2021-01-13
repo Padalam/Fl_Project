@@ -1,0 +1,1694 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    SEPARATOR
+
+Grammar
+
+Rule 0     S' -> programm
+Rule 1     programm -> function
+Rule 2     programm -> function function
+Rule 3     programm -> function programm
+Rule 4     function -> FUNCTION signature L_BRACE body R_BRACE
+Rule 5     signature -> IDENT L_BRACKET argumentList R_BRACKET
+Rule 6     body -> infinstruction
+Rule 7     argumentList -> IDENT
+Rule 8     argumentList -> IDENT COMMA argumentList
+Rule 9     argumentList -> <empty>
+Rule 10    instruction -> assigment
+Rule 11    instruction -> return
+Rule 12    instruction -> condition
+Rule 13    instruction -> loop
+Rule 14    instruction -> <empty>
+Rule 15    instruction -> assigment instruction
+Rule 16    instruction -> return instruction
+Rule 17    instruction -> condition instruction
+Rule 18    instruction -> loop instruction
+Rule 19    infinstruction -> infinstruction instruction
+Rule 20    infinstruction -> instruction
+Rule 21    assigment -> IDENT ASSIGN arExpression
+Rule 22    return -> RETURN arExpression
+Rule 23    condition -> IF arExpression L_BRACE instruction R_BRACE
+Rule 24    condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+Rule 25    loop -> WHILE arExpression L_BRACE instruction R_BRACE
+Rule 26    arExpression -> disjunct
+Rule 27    arExpression -> disjunct OR arExpression
+Rule 28    disjunct -> conjunct
+Rule 29    disjunct -> conjunct AND disjunct
+Rule 30    conjunct -> binaryExp
+Rule 31    conjunct -> binaryExp BIN_OP binaryExp
+Rule 32    binaryExp -> expression
+Rule 33    binaryExp -> NOT expression
+Rule 34    expression -> term
+Rule 35    expression -> expression PLUS term
+Rule 36    expression -> expression MINUS term
+Rule 37    term -> factor
+Rule 38    term -> term MUL_OP factor
+Rule 39    factor -> base
+Rule 40    factor -> MINUS factor
+Rule 41    factor -> base FACTOR factor
+Rule 42    base -> NUMBER
+Rule 43    base -> IDENT
+Rule 44    base -> L_BRACKET arExpression R_BRACKET
+Rule 45    base -> signature
+
+Terminals, with rules where they appear
+
+AND                  : 29
+ASSIGN               : 21
+BIN_OP               : 31
+COMMA                : 8
+ELSE                 : 24
+FACTOR               : 41
+FUNCTION             : 4
+IDENT                : 5 7 8 21 43
+IF                   : 23 24
+L_BRACE              : 4 23 24 24 25
+L_BRACKET            : 5 44
+MINUS                : 36 40
+MUL_OP               : 38
+NOT                  : 33
+NUMBER               : 42
+OR                   : 27
+PLUS                 : 35
+RETURN               : 22
+R_BRACE              : 4 23 24 24 25
+R_BRACKET            : 5 44
+SEPARATOR            : 
+WHILE                : 25
+error                : 
+
+Nonterminals, with rules where they appear
+
+arExpression         : 21 22 23 24 25 27 44
+argumentList         : 5 8
+assigment            : 10 15
+base                 : 39 41
+binaryExp            : 30 31 31
+body                 : 4
+condition            : 12 17
+conjunct             : 28 29
+disjunct             : 26 27 29
+expression           : 32 33 35 36
+factor               : 37 38 40 41
+function             : 1 2 2 3
+infinstruction       : 6 19
+instruction          : 15 16 17 18 19 20 23 24 24 25
+loop                 : 13 18
+programm             : 3 0
+return               : 11 16
+signature            : 4 45
+term                 : 34 35 36 38
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programm
+    (1) programm -> . function
+    (2) programm -> . function function
+    (3) programm -> . function programm
+    (4) function -> . FUNCTION signature L_BRACE body R_BRACE
+
+    FUNCTION        shift and go to state 3
+
+    programm                       shift and go to state 1
+    function                       shift and go to state 2
+
+state 1
+
+    (0) S' -> programm .
+
+
+
+state 2
+
+    (1) programm -> function .
+    (2) programm -> function . function
+    (3) programm -> function . programm
+    (4) function -> . FUNCTION signature L_BRACE body R_BRACE
+    (1) programm -> . function
+    (2) programm -> . function function
+    (3) programm -> . function programm
+
+    $end            reduce using rule 1 (programm -> function .)
+    FUNCTION        shift and go to state 3
+
+    function                       shift and go to state 4
+    programm                       shift and go to state 5
+
+state 3
+
+    (4) function -> FUNCTION . signature L_BRACE body R_BRACE
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    IDENT           shift and go to state 7
+
+    signature                      shift and go to state 6
+
+state 4
+
+    (2) programm -> function function .
+    (1) programm -> function .
+    (2) programm -> function . function
+    (3) programm -> function . programm
+    (4) function -> . FUNCTION signature L_BRACE body R_BRACE
+    (1) programm -> . function
+    (2) programm -> . function function
+    (3) programm -> . function programm
+
+  ! reduce/reduce conflict for $end resolved using rule 1 (programm -> function .)
+    $end            reduce using rule 1 (programm -> function .)
+    FUNCTION        shift and go to state 3
+
+  ! $end            [ reduce using rule 2 (programm -> function function .) ]
+
+    function                       shift and go to state 4
+    programm                       shift and go to state 5
+
+state 5
+
+    (3) programm -> function programm .
+
+    $end            reduce using rule 3 (programm -> function programm .)
+
+
+state 6
+
+    (4) function -> FUNCTION signature . L_BRACE body R_BRACE
+
+    L_BRACE         shift and go to state 8
+
+
+state 7
+
+    (5) signature -> IDENT . L_BRACKET argumentList R_BRACKET
+
+    L_BRACKET       shift and go to state 9
+
+
+state 8
+
+    (4) function -> FUNCTION signature L_BRACE . body R_BRACE
+    (6) body -> . infinstruction
+    (19) infinstruction -> . infinstruction instruction
+    (20) infinstruction -> . instruction
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    R_BRACE         reduce using rule 14 (instruction -> .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+  ! IDENT           [ reduce using rule 14 (instruction -> .) ]
+  ! RETURN          [ reduce using rule 14 (instruction -> .) ]
+  ! IF              [ reduce using rule 14 (instruction -> .) ]
+  ! WHILE           [ reduce using rule 14 (instruction -> .) ]
+
+    body                           shift and go to state 10
+    infinstruction                 shift and go to state 11
+    instruction                    shift and go to state 12
+    assigment                      shift and go to state 13
+    return                         shift and go to state 14
+    condition                      shift and go to state 15
+    loop                           shift and go to state 16
+
+state 9
+
+    (5) signature -> IDENT L_BRACKET . argumentList R_BRACKET
+    (7) argumentList -> . IDENT
+    (8) argumentList -> . IDENT COMMA argumentList
+    (9) argumentList -> .
+
+    IDENT           shift and go to state 21
+    R_BRACKET       reduce using rule 9 (argumentList -> .)
+
+    argumentList                   shift and go to state 22
+
+state 10
+
+    (4) function -> FUNCTION signature L_BRACE body . R_BRACE
+
+    R_BRACE         shift and go to state 23
+
+
+state 11
+
+    (6) body -> infinstruction .
+    (19) infinstruction -> infinstruction . instruction
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+  ! reduce/reduce conflict for R_BRACE resolved using rule 6 (body -> infinstruction .)
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    R_BRACE         reduce using rule 6 (body -> infinstruction .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+  ! IDENT           [ reduce using rule 14 (instruction -> .) ]
+  ! RETURN          [ reduce using rule 14 (instruction -> .) ]
+  ! IF              [ reduce using rule 14 (instruction -> .) ]
+  ! WHILE           [ reduce using rule 14 (instruction -> .) ]
+  ! R_BRACE         [ reduce using rule 14 (instruction -> .) ]
+
+    instruction                    shift and go to state 24
+    assigment                      shift and go to state 13
+    return                         shift and go to state 14
+    condition                      shift and go to state 15
+    loop                           shift and go to state 16
+
+state 12
+
+    (20) infinstruction -> instruction .
+
+    IDENT           reduce using rule 20 (infinstruction -> instruction .)
+    RETURN          reduce using rule 20 (infinstruction -> instruction .)
+    IF              reduce using rule 20 (infinstruction -> instruction .)
+    WHILE           reduce using rule 20 (infinstruction -> instruction .)
+    R_BRACE         reduce using rule 20 (infinstruction -> instruction .)
+
+
+state 13
+
+    (10) instruction -> assigment .
+    (15) instruction -> assigment . instruction
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+  ! reduce/reduce conflict for IDENT resolved using rule 10 (instruction -> assigment .)
+  ! reduce/reduce conflict for RETURN resolved using rule 10 (instruction -> assigment .)
+  ! reduce/reduce conflict for IF resolved using rule 10 (instruction -> assigment .)
+  ! reduce/reduce conflict for WHILE resolved using rule 10 (instruction -> assigment .)
+  ! reduce/reduce conflict for R_BRACE resolved using rule 10 (instruction -> assigment .)
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    R_BRACE         reduce using rule 10 (instruction -> assigment .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+  ! IDENT           [ reduce using rule 10 (instruction -> assigment .) ]
+  ! RETURN          [ reduce using rule 10 (instruction -> assigment .) ]
+  ! IF              [ reduce using rule 10 (instruction -> assigment .) ]
+  ! WHILE           [ reduce using rule 10 (instruction -> assigment .) ]
+  ! IDENT           [ reduce using rule 14 (instruction -> .) ]
+  ! RETURN          [ reduce using rule 14 (instruction -> .) ]
+  ! IF              [ reduce using rule 14 (instruction -> .) ]
+  ! WHILE           [ reduce using rule 14 (instruction -> .) ]
+  ! R_BRACE         [ reduce using rule 14 (instruction -> .) ]
+
+    assigment                      shift and go to state 13
+    instruction                    shift and go to state 25
+    return                         shift and go to state 14
+    condition                      shift and go to state 15
+    loop                           shift and go to state 16
+
+state 14
+
+    (11) instruction -> return .
+    (16) instruction -> return . instruction
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+  ! reduce/reduce conflict for IDENT resolved using rule 11 (instruction -> return .)
+  ! reduce/reduce conflict for RETURN resolved using rule 11 (instruction -> return .)
+  ! reduce/reduce conflict for IF resolved using rule 11 (instruction -> return .)
+  ! reduce/reduce conflict for WHILE resolved using rule 11 (instruction -> return .)
+  ! reduce/reduce conflict for R_BRACE resolved using rule 11 (instruction -> return .)
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    R_BRACE         reduce using rule 11 (instruction -> return .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+  ! IDENT           [ reduce using rule 11 (instruction -> return .) ]
+  ! RETURN          [ reduce using rule 11 (instruction -> return .) ]
+  ! IF              [ reduce using rule 11 (instruction -> return .) ]
+  ! WHILE           [ reduce using rule 11 (instruction -> return .) ]
+  ! IDENT           [ reduce using rule 14 (instruction -> .) ]
+  ! RETURN          [ reduce using rule 14 (instruction -> .) ]
+  ! IF              [ reduce using rule 14 (instruction -> .) ]
+  ! WHILE           [ reduce using rule 14 (instruction -> .) ]
+  ! R_BRACE         [ reduce using rule 14 (instruction -> .) ]
+
+    return                         shift and go to state 14
+    instruction                    shift and go to state 26
+    assigment                      shift and go to state 13
+    condition                      shift and go to state 15
+    loop                           shift and go to state 16
+
+state 15
+
+    (12) instruction -> condition .
+    (17) instruction -> condition . instruction
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+  ! reduce/reduce conflict for IDENT resolved using rule 12 (instruction -> condition .)
+  ! reduce/reduce conflict for RETURN resolved using rule 12 (instruction -> condition .)
+  ! reduce/reduce conflict for IF resolved using rule 12 (instruction -> condition .)
+  ! reduce/reduce conflict for WHILE resolved using rule 12 (instruction -> condition .)
+  ! reduce/reduce conflict for R_BRACE resolved using rule 12 (instruction -> condition .)
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    R_BRACE         reduce using rule 12 (instruction -> condition .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+  ! IDENT           [ reduce using rule 12 (instruction -> condition .) ]
+  ! RETURN          [ reduce using rule 12 (instruction -> condition .) ]
+  ! IF              [ reduce using rule 12 (instruction -> condition .) ]
+  ! WHILE           [ reduce using rule 12 (instruction -> condition .) ]
+  ! IDENT           [ reduce using rule 14 (instruction -> .) ]
+  ! RETURN          [ reduce using rule 14 (instruction -> .) ]
+  ! IF              [ reduce using rule 14 (instruction -> .) ]
+  ! WHILE           [ reduce using rule 14 (instruction -> .) ]
+  ! R_BRACE         [ reduce using rule 14 (instruction -> .) ]
+
+    condition                      shift and go to state 15
+    instruction                    shift and go to state 27
+    assigment                      shift and go to state 13
+    return                         shift and go to state 14
+    loop                           shift and go to state 16
+
+state 16
+
+    (13) instruction -> loop .
+    (18) instruction -> loop . instruction
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+  ! reduce/reduce conflict for IDENT resolved using rule 13 (instruction -> loop .)
+  ! reduce/reduce conflict for RETURN resolved using rule 13 (instruction -> loop .)
+  ! reduce/reduce conflict for IF resolved using rule 13 (instruction -> loop .)
+  ! reduce/reduce conflict for WHILE resolved using rule 13 (instruction -> loop .)
+  ! reduce/reduce conflict for R_BRACE resolved using rule 13 (instruction -> loop .)
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+    R_BRACE         reduce using rule 13 (instruction -> loop .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+  ! IDENT           [ reduce using rule 13 (instruction -> loop .) ]
+  ! RETURN          [ reduce using rule 13 (instruction -> loop .) ]
+  ! IF              [ reduce using rule 13 (instruction -> loop .) ]
+  ! WHILE           [ reduce using rule 13 (instruction -> loop .) ]
+  ! IDENT           [ reduce using rule 14 (instruction -> .) ]
+  ! RETURN          [ reduce using rule 14 (instruction -> .) ]
+  ! IF              [ reduce using rule 14 (instruction -> .) ]
+  ! WHILE           [ reduce using rule 14 (instruction -> .) ]
+  ! R_BRACE         [ reduce using rule 14 (instruction -> .) ]
+
+    loop                           shift and go to state 16
+    instruction                    shift and go to state 28
+    assigment                      shift and go to state 13
+    return                         shift and go to state 14
+    condition                      shift and go to state 15
+
+state 17
+
+    (21) assigment -> IDENT . ASSIGN arExpression
+
+    ASSIGN          shift and go to state 29
+
+
+state 18
+
+    (22) return -> RETURN . arExpression
+    (26) arExpression -> . disjunct
+    (27) arExpression -> . disjunct OR arExpression
+    (28) disjunct -> . conjunct
+    (29) disjunct -> . conjunct AND disjunct
+    (30) conjunct -> . binaryExp
+    (31) conjunct -> . binaryExp BIN_OP binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    arExpression                   shift and go to state 30
+    disjunct                       shift and go to state 31
+    conjunct                       shift and go to state 32
+    binaryExp                      shift and go to state 33
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 19
+
+    (23) condition -> IF . arExpression L_BRACE instruction R_BRACE
+    (24) condition -> IF . arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (26) arExpression -> . disjunct
+    (27) arExpression -> . disjunct OR arExpression
+    (28) disjunct -> . conjunct
+    (29) disjunct -> . conjunct AND disjunct
+    (30) conjunct -> . binaryExp
+    (31) conjunct -> . binaryExp BIN_OP binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    arExpression                   shift and go to state 44
+    disjunct                       shift and go to state 31
+    conjunct                       shift and go to state 32
+    binaryExp                      shift and go to state 33
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 20
+
+    (25) loop -> WHILE . arExpression L_BRACE instruction R_BRACE
+    (26) arExpression -> . disjunct
+    (27) arExpression -> . disjunct OR arExpression
+    (28) disjunct -> . conjunct
+    (29) disjunct -> . conjunct AND disjunct
+    (30) conjunct -> . binaryExp
+    (31) conjunct -> . binaryExp BIN_OP binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    arExpression                   shift and go to state 45
+    disjunct                       shift and go to state 31
+    conjunct                       shift and go to state 32
+    binaryExp                      shift and go to state 33
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 21
+
+    (7) argumentList -> IDENT .
+    (8) argumentList -> IDENT . COMMA argumentList
+
+    R_BRACKET       reduce using rule 7 (argumentList -> IDENT .)
+    COMMA           shift and go to state 46
+
+
+state 22
+
+    (5) signature -> IDENT L_BRACKET argumentList . R_BRACKET
+
+    R_BRACKET       shift and go to state 47
+
+
+state 23
+
+    (4) function -> FUNCTION signature L_BRACE body R_BRACE .
+
+    FUNCTION        reduce using rule 4 (function -> FUNCTION signature L_BRACE body R_BRACE .)
+    $end            reduce using rule 4 (function -> FUNCTION signature L_BRACE body R_BRACE .)
+
+
+state 24
+
+    (19) infinstruction -> infinstruction instruction .
+
+    IDENT           reduce using rule 19 (infinstruction -> infinstruction instruction .)
+    RETURN          reduce using rule 19 (infinstruction -> infinstruction instruction .)
+    IF              reduce using rule 19 (infinstruction -> infinstruction instruction .)
+    WHILE           reduce using rule 19 (infinstruction -> infinstruction instruction .)
+    R_BRACE         reduce using rule 19 (infinstruction -> infinstruction instruction .)
+
+
+state 25
+
+    (15) instruction -> assigment instruction .
+
+    IDENT           reduce using rule 15 (instruction -> assigment instruction .)
+    RETURN          reduce using rule 15 (instruction -> assigment instruction .)
+    IF              reduce using rule 15 (instruction -> assigment instruction .)
+    WHILE           reduce using rule 15 (instruction -> assigment instruction .)
+    R_BRACE         reduce using rule 15 (instruction -> assigment instruction .)
+
+
+state 26
+
+    (16) instruction -> return instruction .
+
+    IDENT           reduce using rule 16 (instruction -> return instruction .)
+    RETURN          reduce using rule 16 (instruction -> return instruction .)
+    IF              reduce using rule 16 (instruction -> return instruction .)
+    WHILE           reduce using rule 16 (instruction -> return instruction .)
+    R_BRACE         reduce using rule 16 (instruction -> return instruction .)
+
+
+state 27
+
+    (17) instruction -> condition instruction .
+
+    IDENT           reduce using rule 17 (instruction -> condition instruction .)
+    RETURN          reduce using rule 17 (instruction -> condition instruction .)
+    IF              reduce using rule 17 (instruction -> condition instruction .)
+    WHILE           reduce using rule 17 (instruction -> condition instruction .)
+    R_BRACE         reduce using rule 17 (instruction -> condition instruction .)
+
+
+state 28
+
+    (18) instruction -> loop instruction .
+
+    IDENT           reduce using rule 18 (instruction -> loop instruction .)
+    RETURN          reduce using rule 18 (instruction -> loop instruction .)
+    IF              reduce using rule 18 (instruction -> loop instruction .)
+    WHILE           reduce using rule 18 (instruction -> loop instruction .)
+    R_BRACE         reduce using rule 18 (instruction -> loop instruction .)
+
+
+state 29
+
+    (21) assigment -> IDENT ASSIGN . arExpression
+    (26) arExpression -> . disjunct
+    (27) arExpression -> . disjunct OR arExpression
+    (28) disjunct -> . conjunct
+    (29) disjunct -> . conjunct AND disjunct
+    (30) conjunct -> . binaryExp
+    (31) conjunct -> . binaryExp BIN_OP binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    arExpression                   shift and go to state 48
+    disjunct                       shift and go to state 31
+    conjunct                       shift and go to state 32
+    binaryExp                      shift and go to state 33
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 30
+
+    (22) return -> RETURN arExpression .
+
+    IDENT           reduce using rule 22 (return -> RETURN arExpression .)
+    RETURN          reduce using rule 22 (return -> RETURN arExpression .)
+    IF              reduce using rule 22 (return -> RETURN arExpression .)
+    WHILE           reduce using rule 22 (return -> RETURN arExpression .)
+    R_BRACE         reduce using rule 22 (return -> RETURN arExpression .)
+
+
+state 31
+
+    (26) arExpression -> disjunct .
+    (27) arExpression -> disjunct . OR arExpression
+
+    IDENT           reduce using rule 26 (arExpression -> disjunct .)
+    RETURN          reduce using rule 26 (arExpression -> disjunct .)
+    IF              reduce using rule 26 (arExpression -> disjunct .)
+    WHILE           reduce using rule 26 (arExpression -> disjunct .)
+    R_BRACE         reduce using rule 26 (arExpression -> disjunct .)
+    L_BRACE         reduce using rule 26 (arExpression -> disjunct .)
+    R_BRACKET       reduce using rule 26 (arExpression -> disjunct .)
+    OR              shift and go to state 49
+
+
+state 32
+
+    (28) disjunct -> conjunct .
+    (29) disjunct -> conjunct . AND disjunct
+
+    OR              reduce using rule 28 (disjunct -> conjunct .)
+    IDENT           reduce using rule 28 (disjunct -> conjunct .)
+    RETURN          reduce using rule 28 (disjunct -> conjunct .)
+    IF              reduce using rule 28 (disjunct -> conjunct .)
+    WHILE           reduce using rule 28 (disjunct -> conjunct .)
+    R_BRACE         reduce using rule 28 (disjunct -> conjunct .)
+    L_BRACE         reduce using rule 28 (disjunct -> conjunct .)
+    R_BRACKET       reduce using rule 28 (disjunct -> conjunct .)
+    AND             shift and go to state 50
+
+
+state 33
+
+    (30) conjunct -> binaryExp .
+    (31) conjunct -> binaryExp . BIN_OP binaryExp
+
+    AND             reduce using rule 30 (conjunct -> binaryExp .)
+    OR              reduce using rule 30 (conjunct -> binaryExp .)
+    IDENT           reduce using rule 30 (conjunct -> binaryExp .)
+    RETURN          reduce using rule 30 (conjunct -> binaryExp .)
+    IF              reduce using rule 30 (conjunct -> binaryExp .)
+    WHILE           reduce using rule 30 (conjunct -> binaryExp .)
+    R_BRACE         reduce using rule 30 (conjunct -> binaryExp .)
+    L_BRACE         reduce using rule 30 (conjunct -> binaryExp .)
+    R_BRACKET       reduce using rule 30 (conjunct -> binaryExp .)
+    BIN_OP          shift and go to state 51
+
+
+state 34
+
+    (32) binaryExp -> expression .
+    (35) expression -> expression . PLUS term
+    (36) expression -> expression . MINUS term
+
+    BIN_OP          reduce using rule 32 (binaryExp -> expression .)
+    AND             reduce using rule 32 (binaryExp -> expression .)
+    OR              reduce using rule 32 (binaryExp -> expression .)
+    IDENT           reduce using rule 32 (binaryExp -> expression .)
+    RETURN          reduce using rule 32 (binaryExp -> expression .)
+    IF              reduce using rule 32 (binaryExp -> expression .)
+    WHILE           reduce using rule 32 (binaryExp -> expression .)
+    R_BRACE         reduce using rule 32 (binaryExp -> expression .)
+    L_BRACE         reduce using rule 32 (binaryExp -> expression .)
+    R_BRACKET       reduce using rule 32 (binaryExp -> expression .)
+    PLUS            shift and go to state 52
+    MINUS           shift and go to state 53
+
+
+state 35
+
+    (33) binaryExp -> NOT . expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    expression                     shift and go to state 54
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 36
+
+    (34) expression -> term .
+    (38) term -> term . MUL_OP factor
+
+    PLUS            reduce using rule 34 (expression -> term .)
+    MINUS           reduce using rule 34 (expression -> term .)
+    BIN_OP          reduce using rule 34 (expression -> term .)
+    AND             reduce using rule 34 (expression -> term .)
+    OR              reduce using rule 34 (expression -> term .)
+    IDENT           reduce using rule 34 (expression -> term .)
+    RETURN          reduce using rule 34 (expression -> term .)
+    IF              reduce using rule 34 (expression -> term .)
+    WHILE           reduce using rule 34 (expression -> term .)
+    R_BRACE         reduce using rule 34 (expression -> term .)
+    L_BRACE         reduce using rule 34 (expression -> term .)
+    R_BRACKET       reduce using rule 34 (expression -> term .)
+    MUL_OP          shift and go to state 55
+
+
+state 37
+
+    (40) factor -> MINUS . factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    factor                         shift and go to state 56
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 38
+
+    (37) term -> factor .
+
+    MUL_OP          reduce using rule 37 (term -> factor .)
+    PLUS            reduce using rule 37 (term -> factor .)
+    MINUS           reduce using rule 37 (term -> factor .)
+    BIN_OP          reduce using rule 37 (term -> factor .)
+    AND             reduce using rule 37 (term -> factor .)
+    OR              reduce using rule 37 (term -> factor .)
+    IDENT           reduce using rule 37 (term -> factor .)
+    RETURN          reduce using rule 37 (term -> factor .)
+    IF              reduce using rule 37 (term -> factor .)
+    WHILE           reduce using rule 37 (term -> factor .)
+    R_BRACE         reduce using rule 37 (term -> factor .)
+    L_BRACE         reduce using rule 37 (term -> factor .)
+    R_BRACKET       reduce using rule 37 (term -> factor .)
+
+
+state 39
+
+    (39) factor -> base .
+    (41) factor -> base . FACTOR factor
+
+    MUL_OP          reduce using rule 39 (factor -> base .)
+    PLUS            reduce using rule 39 (factor -> base .)
+    MINUS           reduce using rule 39 (factor -> base .)
+    BIN_OP          reduce using rule 39 (factor -> base .)
+    AND             reduce using rule 39 (factor -> base .)
+    OR              reduce using rule 39 (factor -> base .)
+    IDENT           reduce using rule 39 (factor -> base .)
+    RETURN          reduce using rule 39 (factor -> base .)
+    IF              reduce using rule 39 (factor -> base .)
+    WHILE           reduce using rule 39 (factor -> base .)
+    R_BRACE         reduce using rule 39 (factor -> base .)
+    L_BRACE         reduce using rule 39 (factor -> base .)
+    R_BRACKET       reduce using rule 39 (factor -> base .)
+    FACTOR          shift and go to state 57
+
+
+state 40
+
+    (42) base -> NUMBER .
+
+    FACTOR          reduce using rule 42 (base -> NUMBER .)
+    MUL_OP          reduce using rule 42 (base -> NUMBER .)
+    PLUS            reduce using rule 42 (base -> NUMBER .)
+    MINUS           reduce using rule 42 (base -> NUMBER .)
+    BIN_OP          reduce using rule 42 (base -> NUMBER .)
+    AND             reduce using rule 42 (base -> NUMBER .)
+    OR              reduce using rule 42 (base -> NUMBER .)
+    IDENT           reduce using rule 42 (base -> NUMBER .)
+    RETURN          reduce using rule 42 (base -> NUMBER .)
+    IF              reduce using rule 42 (base -> NUMBER .)
+    WHILE           reduce using rule 42 (base -> NUMBER .)
+    R_BRACE         reduce using rule 42 (base -> NUMBER .)
+    L_BRACE         reduce using rule 42 (base -> NUMBER .)
+    R_BRACKET       reduce using rule 42 (base -> NUMBER .)
+
+
+state 41
+
+    (43) base -> IDENT .
+    (5) signature -> IDENT . L_BRACKET argumentList R_BRACKET
+
+    FACTOR          reduce using rule 43 (base -> IDENT .)
+    MUL_OP          reduce using rule 43 (base -> IDENT .)
+    PLUS            reduce using rule 43 (base -> IDENT .)
+    MINUS           reduce using rule 43 (base -> IDENT .)
+    BIN_OP          reduce using rule 43 (base -> IDENT .)
+    AND             reduce using rule 43 (base -> IDENT .)
+    OR              reduce using rule 43 (base -> IDENT .)
+    IDENT           reduce using rule 43 (base -> IDENT .)
+    RETURN          reduce using rule 43 (base -> IDENT .)
+    IF              reduce using rule 43 (base -> IDENT .)
+    WHILE           reduce using rule 43 (base -> IDENT .)
+    R_BRACE         reduce using rule 43 (base -> IDENT .)
+    L_BRACE         reduce using rule 43 (base -> IDENT .)
+    R_BRACKET       reduce using rule 43 (base -> IDENT .)
+    L_BRACKET       shift and go to state 9
+
+
+state 42
+
+    (44) base -> L_BRACKET . arExpression R_BRACKET
+    (26) arExpression -> . disjunct
+    (27) arExpression -> . disjunct OR arExpression
+    (28) disjunct -> . conjunct
+    (29) disjunct -> . conjunct AND disjunct
+    (30) conjunct -> . binaryExp
+    (31) conjunct -> . binaryExp BIN_OP binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    arExpression                   shift and go to state 58
+    disjunct                       shift and go to state 31
+    conjunct                       shift and go to state 32
+    binaryExp                      shift and go to state 33
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 43
+
+    (45) base -> signature .
+
+    FACTOR          reduce using rule 45 (base -> signature .)
+    MUL_OP          reduce using rule 45 (base -> signature .)
+    PLUS            reduce using rule 45 (base -> signature .)
+    MINUS           reduce using rule 45 (base -> signature .)
+    BIN_OP          reduce using rule 45 (base -> signature .)
+    AND             reduce using rule 45 (base -> signature .)
+    OR              reduce using rule 45 (base -> signature .)
+    IDENT           reduce using rule 45 (base -> signature .)
+    RETURN          reduce using rule 45 (base -> signature .)
+    IF              reduce using rule 45 (base -> signature .)
+    WHILE           reduce using rule 45 (base -> signature .)
+    R_BRACE         reduce using rule 45 (base -> signature .)
+    L_BRACE         reduce using rule 45 (base -> signature .)
+    R_BRACKET       reduce using rule 45 (base -> signature .)
+
+
+state 44
+
+    (23) condition -> IF arExpression . L_BRACE instruction R_BRACE
+    (24) condition -> IF arExpression . L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+
+    L_BRACE         shift and go to state 59
+
+
+state 45
+
+    (25) loop -> WHILE arExpression . L_BRACE instruction R_BRACE
+
+    L_BRACE         shift and go to state 60
+
+
+state 46
+
+    (8) argumentList -> IDENT COMMA . argumentList
+    (7) argumentList -> . IDENT
+    (8) argumentList -> . IDENT COMMA argumentList
+    (9) argumentList -> .
+
+    IDENT           shift and go to state 21
+    R_BRACKET       reduce using rule 9 (argumentList -> .)
+
+    argumentList                   shift and go to state 61
+
+state 47
+
+    (5) signature -> IDENT L_BRACKET argumentList R_BRACKET .
+
+    L_BRACE         reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    FACTOR          reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    MUL_OP          reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    PLUS            reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    MINUS           reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    BIN_OP          reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    AND             reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    OR              reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    IDENT           reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    RETURN          reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    IF              reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    WHILE           reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    R_BRACE         reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+    R_BRACKET       reduce using rule 5 (signature -> IDENT L_BRACKET argumentList R_BRACKET .)
+
+
+state 48
+
+    (21) assigment -> IDENT ASSIGN arExpression .
+
+    IDENT           reduce using rule 21 (assigment -> IDENT ASSIGN arExpression .)
+    RETURN          reduce using rule 21 (assigment -> IDENT ASSIGN arExpression .)
+    IF              reduce using rule 21 (assigment -> IDENT ASSIGN arExpression .)
+    WHILE           reduce using rule 21 (assigment -> IDENT ASSIGN arExpression .)
+    R_BRACE         reduce using rule 21 (assigment -> IDENT ASSIGN arExpression .)
+
+
+state 49
+
+    (27) arExpression -> disjunct OR . arExpression
+    (26) arExpression -> . disjunct
+    (27) arExpression -> . disjunct OR arExpression
+    (28) disjunct -> . conjunct
+    (29) disjunct -> . conjunct AND disjunct
+    (30) conjunct -> . binaryExp
+    (31) conjunct -> . binaryExp BIN_OP binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    disjunct                       shift and go to state 31
+    arExpression                   shift and go to state 62
+    conjunct                       shift and go to state 32
+    binaryExp                      shift and go to state 33
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 50
+
+    (29) disjunct -> conjunct AND . disjunct
+    (28) disjunct -> . conjunct
+    (29) disjunct -> . conjunct AND disjunct
+    (30) conjunct -> . binaryExp
+    (31) conjunct -> . binaryExp BIN_OP binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    conjunct                       shift and go to state 32
+    disjunct                       shift and go to state 63
+    binaryExp                      shift and go to state 33
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 51
+
+    (31) conjunct -> binaryExp BIN_OP . binaryExp
+    (32) binaryExp -> . expression
+    (33) binaryExp -> . NOT expression
+    (34) expression -> . term
+    (35) expression -> . expression PLUS term
+    (36) expression -> . expression MINUS term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    NOT             shift and go to state 35
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    binaryExp                      shift and go to state 64
+    expression                     shift and go to state 34
+    term                           shift and go to state 36
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 52
+
+    (35) expression -> expression PLUS . term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    term                           shift and go to state 65
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 53
+
+    (36) expression -> expression MINUS . term
+    (37) term -> . factor
+    (38) term -> . term MUL_OP factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    term                           shift and go to state 66
+    factor                         shift and go to state 38
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 54
+
+    (33) binaryExp -> NOT expression .
+    (35) expression -> expression . PLUS term
+    (36) expression -> expression . MINUS term
+
+    BIN_OP          reduce using rule 33 (binaryExp -> NOT expression .)
+    AND             reduce using rule 33 (binaryExp -> NOT expression .)
+    OR              reduce using rule 33 (binaryExp -> NOT expression .)
+    IDENT           reduce using rule 33 (binaryExp -> NOT expression .)
+    RETURN          reduce using rule 33 (binaryExp -> NOT expression .)
+    IF              reduce using rule 33 (binaryExp -> NOT expression .)
+    WHILE           reduce using rule 33 (binaryExp -> NOT expression .)
+    R_BRACE         reduce using rule 33 (binaryExp -> NOT expression .)
+    L_BRACE         reduce using rule 33 (binaryExp -> NOT expression .)
+    R_BRACKET       reduce using rule 33 (binaryExp -> NOT expression .)
+    PLUS            shift and go to state 52
+    MINUS           shift and go to state 53
+
+
+state 55
+
+    (38) term -> term MUL_OP . factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    factor                         shift and go to state 67
+    base                           shift and go to state 39
+    signature                      shift and go to state 43
+
+state 56
+
+    (40) factor -> MINUS factor .
+
+    MUL_OP          reduce using rule 40 (factor -> MINUS factor .)
+    PLUS            reduce using rule 40 (factor -> MINUS factor .)
+    MINUS           reduce using rule 40 (factor -> MINUS factor .)
+    BIN_OP          reduce using rule 40 (factor -> MINUS factor .)
+    AND             reduce using rule 40 (factor -> MINUS factor .)
+    OR              reduce using rule 40 (factor -> MINUS factor .)
+    IDENT           reduce using rule 40 (factor -> MINUS factor .)
+    RETURN          reduce using rule 40 (factor -> MINUS factor .)
+    IF              reduce using rule 40 (factor -> MINUS factor .)
+    WHILE           reduce using rule 40 (factor -> MINUS factor .)
+    R_BRACE         reduce using rule 40 (factor -> MINUS factor .)
+    L_BRACE         reduce using rule 40 (factor -> MINUS factor .)
+    R_BRACKET       reduce using rule 40 (factor -> MINUS factor .)
+
+
+state 57
+
+    (41) factor -> base FACTOR . factor
+    (39) factor -> . base
+    (40) factor -> . MINUS factor
+    (41) factor -> . base FACTOR factor
+    (42) base -> . NUMBER
+    (43) base -> . IDENT
+    (44) base -> . L_BRACKET arExpression R_BRACKET
+    (45) base -> . signature
+    (5) signature -> . IDENT L_BRACKET argumentList R_BRACKET
+
+    MINUS           shift and go to state 37
+    NUMBER          shift and go to state 40
+    IDENT           shift and go to state 41
+    L_BRACKET       shift and go to state 42
+
+    base                           shift and go to state 39
+    factor                         shift and go to state 68
+    signature                      shift and go to state 43
+
+state 58
+
+    (44) base -> L_BRACKET arExpression . R_BRACKET
+
+    R_BRACKET       shift and go to state 69
+
+
+state 59
+
+    (23) condition -> IF arExpression L_BRACE . instruction R_BRACE
+    (24) condition -> IF arExpression L_BRACE . instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+    R_BRACE         reduce using rule 14 (instruction -> .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+    instruction                    shift and go to state 70
+    assigment                      shift and go to state 13
+    return                         shift and go to state 14
+    condition                      shift and go to state 15
+    loop                           shift and go to state 16
+
+state 60
+
+    (25) loop -> WHILE arExpression L_BRACE . instruction R_BRACE
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+    R_BRACE         reduce using rule 14 (instruction -> .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+    instruction                    shift and go to state 71
+    assigment                      shift and go to state 13
+    return                         shift and go to state 14
+    condition                      shift and go to state 15
+    loop                           shift and go to state 16
+
+state 61
+
+    (8) argumentList -> IDENT COMMA argumentList .
+
+    R_BRACKET       reduce using rule 8 (argumentList -> IDENT COMMA argumentList .)
+
+
+state 62
+
+    (27) arExpression -> disjunct OR arExpression .
+
+    IDENT           reduce using rule 27 (arExpression -> disjunct OR arExpression .)
+    RETURN          reduce using rule 27 (arExpression -> disjunct OR arExpression .)
+    IF              reduce using rule 27 (arExpression -> disjunct OR arExpression .)
+    WHILE           reduce using rule 27 (arExpression -> disjunct OR arExpression .)
+    R_BRACE         reduce using rule 27 (arExpression -> disjunct OR arExpression .)
+    L_BRACE         reduce using rule 27 (arExpression -> disjunct OR arExpression .)
+    R_BRACKET       reduce using rule 27 (arExpression -> disjunct OR arExpression .)
+
+
+state 63
+
+    (29) disjunct -> conjunct AND disjunct .
+
+    OR              reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+    IDENT           reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+    RETURN          reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+    IF              reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+    WHILE           reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+    R_BRACE         reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+    L_BRACE         reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+    R_BRACKET       reduce using rule 29 (disjunct -> conjunct AND disjunct .)
+
+
+state 64
+
+    (31) conjunct -> binaryExp BIN_OP binaryExp .
+
+    AND             reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    OR              reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    IDENT           reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    RETURN          reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    IF              reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    WHILE           reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    R_BRACE         reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    L_BRACE         reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+    R_BRACKET       reduce using rule 31 (conjunct -> binaryExp BIN_OP binaryExp .)
+
+
+state 65
+
+    (35) expression -> expression PLUS term .
+    (38) term -> term . MUL_OP factor
+
+    PLUS            reduce using rule 35 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 35 (expression -> expression PLUS term .)
+    BIN_OP          reduce using rule 35 (expression -> expression PLUS term .)
+    AND             reduce using rule 35 (expression -> expression PLUS term .)
+    OR              reduce using rule 35 (expression -> expression PLUS term .)
+    IDENT           reduce using rule 35 (expression -> expression PLUS term .)
+    RETURN          reduce using rule 35 (expression -> expression PLUS term .)
+    IF              reduce using rule 35 (expression -> expression PLUS term .)
+    WHILE           reduce using rule 35 (expression -> expression PLUS term .)
+    R_BRACE         reduce using rule 35 (expression -> expression PLUS term .)
+    L_BRACE         reduce using rule 35 (expression -> expression PLUS term .)
+    R_BRACKET       reduce using rule 35 (expression -> expression PLUS term .)
+    MUL_OP          shift and go to state 55
+
+
+state 66
+
+    (36) expression -> expression MINUS term .
+    (38) term -> term . MUL_OP factor
+
+    PLUS            reduce using rule 36 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 36 (expression -> expression MINUS term .)
+    BIN_OP          reduce using rule 36 (expression -> expression MINUS term .)
+    AND             reduce using rule 36 (expression -> expression MINUS term .)
+    OR              reduce using rule 36 (expression -> expression MINUS term .)
+    IDENT           reduce using rule 36 (expression -> expression MINUS term .)
+    RETURN          reduce using rule 36 (expression -> expression MINUS term .)
+    IF              reduce using rule 36 (expression -> expression MINUS term .)
+    WHILE           reduce using rule 36 (expression -> expression MINUS term .)
+    R_BRACE         reduce using rule 36 (expression -> expression MINUS term .)
+    L_BRACE         reduce using rule 36 (expression -> expression MINUS term .)
+    R_BRACKET       reduce using rule 36 (expression -> expression MINUS term .)
+    MUL_OP          shift and go to state 55
+
+
+state 67
+
+    (38) term -> term MUL_OP factor .
+
+    MUL_OP          reduce using rule 38 (term -> term MUL_OP factor .)
+    PLUS            reduce using rule 38 (term -> term MUL_OP factor .)
+    MINUS           reduce using rule 38 (term -> term MUL_OP factor .)
+    BIN_OP          reduce using rule 38 (term -> term MUL_OP factor .)
+    AND             reduce using rule 38 (term -> term MUL_OP factor .)
+    OR              reduce using rule 38 (term -> term MUL_OP factor .)
+    IDENT           reduce using rule 38 (term -> term MUL_OP factor .)
+    RETURN          reduce using rule 38 (term -> term MUL_OP factor .)
+    IF              reduce using rule 38 (term -> term MUL_OP factor .)
+    WHILE           reduce using rule 38 (term -> term MUL_OP factor .)
+    R_BRACE         reduce using rule 38 (term -> term MUL_OP factor .)
+    L_BRACE         reduce using rule 38 (term -> term MUL_OP factor .)
+    R_BRACKET       reduce using rule 38 (term -> term MUL_OP factor .)
+
+
+state 68
+
+    (41) factor -> base FACTOR factor .
+
+    MUL_OP          reduce using rule 41 (factor -> base FACTOR factor .)
+    PLUS            reduce using rule 41 (factor -> base FACTOR factor .)
+    MINUS           reduce using rule 41 (factor -> base FACTOR factor .)
+    BIN_OP          reduce using rule 41 (factor -> base FACTOR factor .)
+    AND             reduce using rule 41 (factor -> base FACTOR factor .)
+    OR              reduce using rule 41 (factor -> base FACTOR factor .)
+    IDENT           reduce using rule 41 (factor -> base FACTOR factor .)
+    RETURN          reduce using rule 41 (factor -> base FACTOR factor .)
+    IF              reduce using rule 41 (factor -> base FACTOR factor .)
+    WHILE           reduce using rule 41 (factor -> base FACTOR factor .)
+    R_BRACE         reduce using rule 41 (factor -> base FACTOR factor .)
+    L_BRACE         reduce using rule 41 (factor -> base FACTOR factor .)
+    R_BRACKET       reduce using rule 41 (factor -> base FACTOR factor .)
+
+
+state 69
+
+    (44) base -> L_BRACKET arExpression R_BRACKET .
+
+    FACTOR          reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    MUL_OP          reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    PLUS            reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    MINUS           reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    BIN_OP          reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    AND             reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    OR              reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    IDENT           reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    RETURN          reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    IF              reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    WHILE           reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    R_BRACE         reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    L_BRACE         reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+    R_BRACKET       reduce using rule 44 (base -> L_BRACKET arExpression R_BRACKET .)
+
+
+state 70
+
+    (23) condition -> IF arExpression L_BRACE instruction . R_BRACE
+    (24) condition -> IF arExpression L_BRACE instruction . R_BRACE ELSE L_BRACE instruction R_BRACE
+
+    R_BRACE         shift and go to state 72
+
+
+state 71
+
+    (25) loop -> WHILE arExpression L_BRACE instruction . R_BRACE
+
+    R_BRACE         shift and go to state 73
+
+
+state 72
+
+    (23) condition -> IF arExpression L_BRACE instruction R_BRACE .
+    (24) condition -> IF arExpression L_BRACE instruction R_BRACE . ELSE L_BRACE instruction R_BRACE
+
+    IDENT           reduce using rule 23 (condition -> IF arExpression L_BRACE instruction R_BRACE .)
+    RETURN          reduce using rule 23 (condition -> IF arExpression L_BRACE instruction R_BRACE .)
+    IF              reduce using rule 23 (condition -> IF arExpression L_BRACE instruction R_BRACE .)
+    WHILE           reduce using rule 23 (condition -> IF arExpression L_BRACE instruction R_BRACE .)
+    R_BRACE         reduce using rule 23 (condition -> IF arExpression L_BRACE instruction R_BRACE .)
+    ELSE            shift and go to state 74
+
+
+state 73
+
+    (25) loop -> WHILE arExpression L_BRACE instruction R_BRACE .
+
+    IDENT           reduce using rule 25 (loop -> WHILE arExpression L_BRACE instruction R_BRACE .)
+    RETURN          reduce using rule 25 (loop -> WHILE arExpression L_BRACE instruction R_BRACE .)
+    IF              reduce using rule 25 (loop -> WHILE arExpression L_BRACE instruction R_BRACE .)
+    WHILE           reduce using rule 25 (loop -> WHILE arExpression L_BRACE instruction R_BRACE .)
+    R_BRACE         reduce using rule 25 (loop -> WHILE arExpression L_BRACE instruction R_BRACE .)
+
+
+state 74
+
+    (24) condition -> IF arExpression L_BRACE instruction R_BRACE ELSE . L_BRACE instruction R_BRACE
+
+    L_BRACE         shift and go to state 75
+
+
+state 75
+
+    (24) condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE . instruction R_BRACE
+    (10) instruction -> . assigment
+    (11) instruction -> . return
+    (12) instruction -> . condition
+    (13) instruction -> . loop
+    (14) instruction -> .
+    (15) instruction -> . assigment instruction
+    (16) instruction -> . return instruction
+    (17) instruction -> . condition instruction
+    (18) instruction -> . loop instruction
+    (21) assigment -> . IDENT ASSIGN arExpression
+    (22) return -> . RETURN arExpression
+    (23) condition -> . IF arExpression L_BRACE instruction R_BRACE
+    (24) condition -> . IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE
+    (25) loop -> . WHILE arExpression L_BRACE instruction R_BRACE
+
+    R_BRACE         reduce using rule 14 (instruction -> .)
+    IDENT           shift and go to state 17
+    RETURN          shift and go to state 18
+    IF              shift and go to state 19
+    WHILE           shift and go to state 20
+
+    instruction                    shift and go to state 76
+    assigment                      shift and go to state 13
+    return                         shift and go to state 14
+    condition                      shift and go to state 15
+    loop                           shift and go to state 16
+
+state 76
+
+    (24) condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction . R_BRACE
+
+    R_BRACE         shift and go to state 77
+
+
+state 77
+
+    (24) condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE .
+
+    IDENT           reduce using rule 24 (condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE .)
+    RETURN          reduce using rule 24 (condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE .)
+    IF              reduce using rule 24 (condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE .)
+    WHILE           reduce using rule 24 (condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE .)
+    R_BRACE         reduce using rule 24 (condition -> IF arExpression L_BRACE instruction R_BRACE ELSE L_BRACE instruction R_BRACE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for IDENT in state 8 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 8 resolved as shift
+WARNING: shift/reduce conflict for IF in state 8 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 8 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 11 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 11 resolved as shift
+WARNING: shift/reduce conflict for IF in state 11 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 11 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 13 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 13 resolved as shift
+WARNING: shift/reduce conflict for IF in state 13 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 13 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 14 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 14 resolved as shift
+WARNING: shift/reduce conflict for IF in state 14 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 14 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 15 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 15 resolved as shift
+WARNING: shift/reduce conflict for IF in state 15 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 15 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 16 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 16 resolved as shift
+WARNING: shift/reduce conflict for IF in state 16 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 16 resolved as shift
+WARNING: reduce/reduce conflict in state 4 resolved using rule (programm -> function)
+WARNING: rejected rule (programm -> function function) in state 4
+WARNING: reduce/reduce conflict in state 11 resolved using rule (body -> infinstruction)
+WARNING: rejected rule (instruction -> <empty>) in state 11
+WARNING: reduce/reduce conflict in state 13 resolved using rule (instruction -> assigment)
+WARNING: rejected rule (instruction -> <empty>) in state 13
+WARNING: reduce/reduce conflict in state 14 resolved using rule (instruction -> return)
+WARNING: rejected rule (instruction -> <empty>) in state 14
+WARNING: reduce/reduce conflict in state 15 resolved using rule (instruction -> condition)
+WARNING: rejected rule (instruction -> <empty>) in state 15
+WARNING: reduce/reduce conflict in state 16 resolved using rule (instruction -> loop)
+WARNING: rejected rule (instruction -> <empty>) in state 16
+WARNING: Rule (programm -> function function) is never reduced

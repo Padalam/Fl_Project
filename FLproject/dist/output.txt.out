@@ -1,0 +1,54 @@
+PROGRAMM:
+	FUNCTION:
+		SIGNATURE:
+			IDENT tEst123
+			ARGUMENTS:
+				number
+				x
+		BODY:
+			INSTRUCTION:
+				ASSIGMENT:
+					x
+					0
+				INSTRUCTION:
+					ASSIGMENT:
+						y
+						5
+					INSTRUCTION:
+						IF:
+							>:
+								x
+								3
+							ASSIGMENT:
+								tEst
+								1
+						RETURN:
+							0
+	PROGRAMM:
+		FUNCTION:
+			SIGNATURE:
+				IDENT test
+				ARGUMENTS:
+					x
+					y
+			BODY:
+				INSTRUCTION:
+					WHILE:
+						OR:
+							condition1
+							AND:
+								condition2
+								x
+						ASSIGMENT:
+							x
+							+:
+								SIGNATURE:
+									IDENT text
+									ARGUMENTS:
+										x
+										y
+								SIGNATURE:
+									IDENT sin
+									x
+					RETURN:
+						x

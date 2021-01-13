@@ -1,0 +1,19 @@
+function test(number)
+{
+	x = 0*6*7
+    y = 5-0
+    if (x>3)
+    {
+        tEst = 3**(2-2)
+    }
+    return 5-5
+}
+if (bRead)
+function test(x,y)
+{
+    while (condition1 || condition2 && x)
+    {
+        x = text(x,y) + sin(x)
+    }
+    return x
+}
