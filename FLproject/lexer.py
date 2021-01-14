@@ -130,10 +130,12 @@ def p_signature(p):
 def p_body(p):
     '''
     body : infinstruction 
+    
 
          
     '''
-
+    if (len(p)==1):
+        p[0] = Node("BODY",[])
     if (len(p)==2):
         p[0] = Node("BODY",[p[1]])
     if (len(p)>=3):
@@ -143,14 +145,16 @@ def p_body(p):
 def p_argumentList(p):
 
     '''
-    argumentList : IDENT
+    argumentList : 
                  | IDENT COMMA argumentList
-                 | 
+                 | IDENT
     '''
+    if len(p)==1:
+        p[0] = Node("ARGUMENTS",[])
     if len(p)==2:
         p[0] = p[1]
-    else:
-            p[0] = Node("ARGUMENTS",[p[1],p[3]])
+    elif (len(p)>3):
+        p[0] = Node("ARGUMENTS",[p[1],p[3]])
 
 
 
@@ -328,27 +332,10 @@ def p_error(p):
 f = open('input.txt', 'r')
 
 data = '''
-function foo(number)
-{
-	x = 0*6*7
-    y = 5-0
-    if (x>3)
-    {
-        tEst = 3**(2-2)
-    }
-    return 5-5
-}
-12312312if()
-function test(x,y)
-{
-    while (condition1 || condition2 && x)
-    {
-        x = text(x,y) + sin(x)
-    }
-    return x
-}
+function main() {return 1}
+
 '''
-data = f.read()
+#data = f.read()
 
 lexer.input(data)
 f.close()
@@ -361,6 +348,7 @@ while True:
     #print(tok)
 
 qwe = parser.parse(data)
+print(qwe)
 f.write(str(qwe))
 
 
