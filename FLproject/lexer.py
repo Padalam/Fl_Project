@@ -317,6 +317,8 @@ def p_term(p):
                 p[0]='0'
             else:
                 p[0] = Node(p[2],[p[1],p[3]])
+        elif (p[1]==p[3]):
+            p[0] = 1
         else:
             p[0] = Node(p[2],[p[1],p[3]])
 
@@ -333,10 +335,17 @@ def p_factor(p):
     else:
         if p[1]!='0' and p[3]=='0':
             p[0]='1'
+        elif p[1]=='0' and p[3]!='0':
+            p[0]='0'
+        elif p[3] =='1':
+            p[0]=p[1]
+        elif p[1] =='1':
+            p[0]='1'
         else:
             p[0] = Node(p[2],[p[1],p[3]])
 
 def p_base(p):
+
     '''
     base : NUMBER
          | IDENT
@@ -362,7 +371,7 @@ f = open('input.txt', 'r')
 
 data = '''
 function main() {
-    x = b*a+c*a
+    x = 1**10000
 }
 
 '''
