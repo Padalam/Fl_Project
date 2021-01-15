@@ -315,6 +315,8 @@ def p_term(p):
                 p[0] = p[1]
             elif ((p[1]=='0' or p[3]=='0')):
                 p[0]='0'
+            else:
+                p[0] = Node(p[2],[p[1],p[3]])
         else:
             p[0] = Node(p[2],[p[1],p[3]])
 
@@ -360,7 +362,7 @@ f = open('input.txt', 'r')
 
 data = '''
 function main() {
-    x = 1 / 5-5
+    x = b*a+c*a
 }
 
 '''
