@@ -263,31 +263,58 @@ def p_expression(p):
                | expression PLUS term
                | expression MINUS term
     '''
+    #a*b+a*c
     if len(p) == 2:
         p[0] = p[1]
     else:
-        print(p[1],p[3])
+        print(str(p[1]))
+        if re.match(r'\*:\n\t[a-z]\w*\n\t[a-z]\w*',str(p[1])) and re.match(r'\*:\n\t[a-z]\w*\n\t[a-z]\w*',str(p[3])) :
+            print("WOW")
+            token1 = str(p[1])[4]
+            token2 = str(p[1])[7]
+            token3 = str(p[3])[4]
+            token4 = str(p[3])[7]
+            if (token1 == token3 or token1 == token4):
+                if (token1 == token3):
+                    tmp = Node(p[2],[token2,token4])
+                    p[0]=Node("*",[token1,tmp])
+                if (token1 == token4):  #a*b+c*a
+                    tmp = Node(p[2],[token2,token3])
+                    p[0]=Node("*",[token1,tmp])
+                return
+            elif (token2 == token3 or token2 == token4):
+                if (token2 == token3): # b*a+a*c
+                    tmp = Node(p[2],[token1,token4])
+                    p[0]=Node("*",[token2,tmp])
+                if (token2 == token4):  #a*b+c*b
+                    tmp = Node(p[2],[token1,token3])
+                    p[0]=Node("*",[token2,tmp])
+                return
+                print("YES")
+            #elif (token2 == token3 or token1 == token4):
         if (p[1]==p[3] and p[2]=='-'):
             p[0] = "0"
         elif p[3]=='0':
             p[0] = p[1]
         else: 
             p[0] = Node(p[2],[p[1],p[3]])
-
 def p_term(p):
     '''
     term : factor
          | term MUL_OP factor
     '''
+
+
     if len(p) == 2:
         p[0] = p[1]
     else:
-        if (p[1]=='1'):
-            p[0] = p[3]
-        elif (p[3]=='1'):
-            p[0] = p[1]
-        elif (p[1]=='0' or p[3]=='0'):
-            p[0]='0'
+        if (p[2]=='*'):
+            if (p[1]=='1'):
+                p[0] = p[3]
+            elif (p[3]=='1'):
+                p[0] = p[1]
+            elif ((p[1]=='0' or p[3]=='0')):
+                p[0]='0'
         else:
             p[0] = Node(p[2],[p[1],p[3]])
 
@@ -332,7 +359,9 @@ def p_error(p):
 f = open('input.txt', 'r')
 
 data = '''
-function main() {return 1}
+function main() {
+    x = 1 / 5-5
+}
 
 '''
 #data = f.read()
